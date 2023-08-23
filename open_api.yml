@@ -1,0 +1,357 @@
+openapi: 3.0.0
+
+info:
+  title: Generative Language API
+  description: API for generating text and messages using models like PaLM.
+  version: 1.0.0
+
+servers:
+  - url: https://generativelanguage.googleapis.com/v1beta2
+
+paths:
+  /models/{model}/text:
+    post:
+      summary: Generate text from model
+      operationId: generateText
+      parameters:
+        - $ref: "#/components/parameters/ModelParameter"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateTextRequest"
+      responses:
+        200:
+          $ref: "#/components/responses/TextGenerationResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+
+  /models/{model}/message:
+    post:
+      summary: Generate message from model
+      operationId: generateMessage
+      parameters:
+        - $ref: "#/components/parameters/ModelParameter"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateMessageRequest"
+      responses:
+        200:
+          $ref: "#/components/responses/MessageGenerationResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+
+  /models:
+    get:
+      $ref: "#/paths/~1models/get"
+
+components:
+  parameters:
+    ModelParameter:
+      name: model
+      in: path
+      required: true
+      schema:
+        type: string
+        description: Name of the model to use
+
+  schemas:
+    Model:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The resource name of the model
+        baseModelId:
+          type: string
+          description: Base model name
+        version:
+          type: string
+          description: Model version number
+        displayName:
+          type: string
+          description: Human readable display name
+        description:
+          type: string
+          description: Description of the model
+        inputTokenLimit:
+          type: integer
+          description: Max input tokens
+        outputTokenLimit:
+          type: integer
+          description: Max output tokens
+        supportedGenerationMethods:
+          type: array
+          items:
+            type: string
+          description: Supported generation methods
+        temperature:
+          type: number
+          description: Default temperature
+        topP:
+          type: number
+          description: Default top-p
+        topK:
+          type: integer
+          description: Default top-k
+
+    MessagePrompt:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Message"
+        examples:
+          type: array
+          items:
+            $ref: "#/components/schemas/Example"
+
+    Example:
+      type: object
+      properties:
+        input:
+          $ref: "#/components/schemas/Message"
+        output:
+          $ref: "#/components/schemas/Message"
+
+    Message:
+      type: object
+      properties:
+        author:
+          type: string
+          description: Author
+        content:
+          type: string
+          description: Content
+        citationMetadata:
+          $ref: "#/components/schemas/CitationMetadata"
+
+    TextPrompt:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Input text
+
+    SafetySetting:
+      type: object
+      properties:
+        category:
+          $ref: "#/components/schemas/SafetySetting/HarmCategory"
+        threshold:
+          $ref: "#/components/schemas/SafetySetting/HarmBlockThreshold"
+
+      HarmCategory:
+        type: string
+        enum:
+          - HARM_CATEGORY_UNSPECIFIED
+          - HARM_CATEGORY_DEROGATORY
+          - HARM_CATEGORY_TOXICITY
+          - HARM_CATEGORY_VIOLENCE
+          - HARM_CATEGORY_SEXUAL
+          - HARM_CATEGORY_MEDICAL
+          - HARM_CATEGORY_DANGEROUS
+        description: Categories of harmful content
+
+      HarmBlockThreshold:
+        type: string
+        enum:
+          - HARM_BLOCK_THRESHOLD_UNSPECIFIED
+          - BLOCK_LOW_AND_ABOVE
+          - BLOCK_MEDIUM_AND_ABOVE
+          - BLOCK_ONLY_HIGH
+          - BLOCK_NONE
+        description: Thresholds for blocking content
+
+    GenerateTextRequest:
+      type: object
+      properties:
+        prompt:
+          $ref: "#/components/schemas/TextPrompt"
+        safetySettings:
+          type: array
+          items:
+            $ref: "#/components/schemas/SafetySetting"
+        stopSequences:
+          type: array
+          items:
+            type: string
+          description: Stop sequences
+        temperature:
+          type: number
+          description: Temperature parameter
+        candidateCount:
+          type: integer
+          description: Number of candidates
+        maxOutputTokens:
+          type: integer
+          description: Max output tokens
+        topP:
+          type: number
+          description: Top-p parameter
+        topK:
+          type: integer
+          description: Top-k parameter
+
+    GenerateMessageRequest:
+      type: object
+      properties:
+        prompt:
+          $ref: "#/components/schemas/MessagePrompt"
+        temperature:
+          type: number
+        candidateCount:
+          type: integer
+
+    GenerateTextResponse:
+      type: object
+      properties:
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/TextCompletion"
+        filters:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContentFilter"
+        safetyFeedback:
+          type: array
+          items:
+            $ref: "#/components/schemas/SafetyFeedback"
+
+    GenerateMessageResponse:
+      type: object
+      properties:
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Message"
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Message"
+        filters:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContentFilter"
+
+    TextCompletion:
+      type: object
+      properties:
+        output:
+          type: string
+          description: Generated text
+        safetyRatings:
+          type: array
+          items:
+            $ref: "#/components/schemas/SafetyRating"
+        citationMetadata:
+          $ref: "#/components/schemas/CitationMetadata"
+
+    CitationMetadata:
+      type: object
+      properties:
+        citationSources:
+          type: array
+          items:
+            $ref: "#/components/schemas/CitationSource"
+
+    CitationSource:
+      type: object
+      properties:
+        startIndex:
+          type: integer
+          description: Start index
+        endIndex:
+          type: integer
+          description: End index
+        uri:
+          type: string
+          description: Cited URI
+        license:
+          type: string
+          description: License info
+
+    ContentFilter:
+      type: object
+      properties:
+        reason:
+          $ref: "#/components/schemas/ContentFilter/BlockReason"
+        message:
+          type: string
+          description: Explanation message
+
+      BlockReason:
+        type: string
+        enum:
+          - BLOCKED_REASON_UNSPECIFIED
+          - SAFETY
+          - OTHER
+        description: Reasons for blocking content
+
+    SafetyRating:
+      type: object
+      properties:
+        category:
+          $ref: "#/components/schemas/SafetySetting/HarmCategory"
+        probability:
+          $ref: "#/components/schemas/SafetyRating/HarmProbability"
+
+      HarmProbability:
+        type: string
+        enum:
+          - HARM_PROBABILITY_UNSPECIFIED
+          - NEGLIGIBLE
+          - LOW
+          - MEDIUM
+          - HIGH
+        description: Levels of harmful probability
+
+    SafetyFeedback:
+      type: object
+      properties:
+        rating:
+          $ref: "#/components/schemas/SafetyRating"
+        setting:
+          $ref: "#/components/schemas/SafetySetting"
+
+  responses:
+    TextGenerationResponse:
+      description: Text generation success
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GenerateTextResponse"
+
+    MessageGenerationResponse:
+      description: Message generation success
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GenerateMessageResponse"
+
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+
+  securitySchemes:
+    OAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.example.com/authorize
+          tokenUrl: https://auth.example.com/token
+          scopes:
+            generative-language: Access generative language models
