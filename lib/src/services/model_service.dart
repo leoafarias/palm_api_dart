@@ -1,6 +1,17 @@
 import 'package:palm_api/src/models/gen_model.model.dart';
 import 'package:palm_api/src/services/base_service.dart';
 
+enum ModelNames {
+  textBison001('text-bison-001'),
+  chatBison001('chat-bison-001'),
+
+  embeddingGecko001('embedding-gecko-001');
+
+  const ModelNames(this.name);
+
+  final String name;
+}
+
 /// ModelService deals with all model related API endpoints, providing a higher
 /// level and organized way of managing models in the API.
 class ModelService extends BaseService {

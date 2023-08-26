@@ -86,9 +86,9 @@ class GenerateTextRequest {
     this.topK,
   });
 
-  Map<String, dynamic> toJson() => {
-        'prompt': prompt.toJson(),
-        'safetySettings': safetySettings?.map((e) => e.toJson()).toList(),
+  Map<String, dynamic> toMap() => {
+        'prompt': prompt.toMap(),
+        'safetySettings': safetySettings?.map((e) => e.toMap()).toList(),
         'stopSequences': stopSequences,
         'temperature': temperature,
         'candidateCount': candidateCount,
@@ -97,22 +97,35 @@ class GenerateTextRequest {
         'topK': topK,
       };
 
-  static GenerateTextRequest fromJson(Map<String, dynamic> json) {
-    final stopSequences = json['stopSequences'] as List<dynamic>?;
-    final safetySettings = json['safetySettings'] as List<dynamic>?;
+  Map<String, dynamic> toJson() {
+    return {
+      'prompt': prompt.toJson(),
+      'safety_settings': safetySettings?.map((e) => e.toJson()).toList(),
+      'stop_sequences': stopSequences,
+      'temperature': temperature,
+      'candidate_count': candidateCount,
+      'max_output_tokens': maxOutputTokens,
+      'top_p': topP,
+      'top_k': topK,
+    };
+  }
+
+  static GenerateTextRequest fromMap(Map<String, dynamic> map) {
+    final stopSequences = map['stopSequences'] as List<dynamic>?;
+    final safetySettings = map['safetySettings'] as List<dynamic>?;
     return GenerateTextRequest(
-      prompt: TextPrompt.fromJson(json['prompt']),
+      prompt: TextPrompt.fromMap(map['prompt']),
       safetySettings: safetySettings
-          ?.map<SafetySetting>((e) => SafetySetting.fromJson(e))
+          ?.map<SafetySetting>((e) => SafetySetting.fromMap(e))
           .toList(),
       stopSequences: stopSequences != null
-          ? List<String>.from(json['stopSequences'])
+          ? List<String>.from(map['stopSequences'])
           : null,
-      temperature: json['temperature'] as double?,
-      candidateCount: json['candidateCount'] as int?,
-      maxOutputTokens: json['maxOutputTokens'] as int?,
-      topP: json['topP'] as double?,
-      topK: json['topK'] as int?,
+      temperature: map['temperature'] as double?,
+      candidateCount: map['candidateCount'] as int?,
+      maxOutputTokens: map['maxOutputTokens'] as int?,
+      topP: map['topP'] as double?,
+      topK: map['topK'] as int?,
     );
   }
 }
@@ -170,7 +183,7 @@ class GenerateMessageResponse {
     return {
       'candidates': candidates?.map((e) => e.toJson()).toList(),
       'messages': messages?.map((e) => e.toJson()).toList(),
-      'filters': filters?.map((e) => e.toJson()).toList(),
+      'filters': filters?.map((e) => e.toMap()).toList(),
     };
   }
 
@@ -183,7 +196,7 @@ class GenerateMessageResponse {
           ?.map<Message>((e) => Message.fromJson(e))
           .toList(),
       filters: (json['filters'] as List<dynamic>?)
-          ?.map<ContentFilter>((e) => ContentFilter.fromJson(e))
+          ?.map<ContentFilter>((e) => ContentFilter.fromMap(e))
           .toList(),
     );
   }
@@ -195,29 +208,29 @@ class GenerateTextResponse {
   List<SafetySetting>? safetyFeedback;
 
   GenerateTextResponse({
-    required this.candidates,
+    this.candidates,
     this.filters,
     this.safetyFeedback,
   });
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
-      'candidates': candidates?.map((e) => e.toJson()).toList(),
-      'filters': filters?.map((e) => e.toJson()).toList(),
-      'safetyFeedback': safetyFeedback?.map((e) => e.toJson()).toList(),
+      'candidates': candidates?.map((e) => e.toMap()).toList(),
+      'filters': filters?.map((e) => e.toMap()).toList(),
+      'safetyFeedback': safetyFeedback?.map((e) => e.toMap()).toList(),
     };
   }
 
-  static GenerateTextResponse fromJson(Map<String, dynamic> json) {
+  static GenerateTextResponse fromMap(Map<String, dynamic> map) {
     return GenerateTextResponse(
-      candidates: (json['candidates'] as List<dynamic>?)
-          ?.map<TextCompletion>((e) => TextCompletion.fromJson(e))
+      candidates: (map['candidates'] as List<dynamic>?)
+          ?.map<TextCompletion>((e) => TextCompletion.fromMap(e))
           .toList(),
-      filters: (json['filters'] as List<dynamic>?)
-          ?.map<ContentFilter>((e) => ContentFilter.fromJson(e))
+      filters: (map['filters'] as List<dynamic>?)
+          ?.map<ContentFilter>((e) => ContentFilter.fromMap(e))
           .toList(),
-      safetyFeedback: (json['safetyFeedback'] as List<dynamic>?)
-          ?.map<SafetySetting>((e) => SafetySetting.fromJson(e))
+      safetyFeedback: (map['safetyFeedback'] as List<dynamic>?)
+          ?.map<SafetySetting>((e) => SafetySetting.fromMap(e))
           .toList(),
     );
   }

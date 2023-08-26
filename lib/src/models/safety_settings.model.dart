@@ -5,23 +5,31 @@
 /// to the AI's ability to generate safe and policy-compliant content.
 class SafetySetting {
   /// Represents the category of safety.
-  final String category;
+  final String? category;
 
   /// Represents the blocking threshold for this safety setting.
-  final String threshold;
+  final String? threshold;
 
-  SafetySetting({
-    required this.category,
-    required this.threshold,
+  const SafetySetting({
+    this.category,
+    this.threshold,
   });
 
   /// Creates a new SafetySetting instance from a map.
-  factory SafetySetting.fromJson(Map<String, dynamic> json) => SafetySetting(
-        category: json['category'],
-        threshold: json['threshold'],
+  factory SafetySetting.fromMap(Map<String, dynamic> map) => SafetySetting(
+        category: map['category'],
+        threshold: map['threshold'],
       );
 
+  factory SafetySetting.fromJson(Map<String, dynamic> json) =>
+      SafetySetting.fromMap(json);
+
   /// Converts the SafetySetting instance into a Map.
+  Map<String, dynamic> toMap() => {
+        'category': category,
+        'threshold': threshold,
+      };
+
   Map<String, dynamic> toJson() => {
         'category': category,
         'threshold': threshold,

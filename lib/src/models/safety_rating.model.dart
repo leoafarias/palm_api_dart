@@ -16,13 +16,13 @@ class SafetyRating {
   });
 
   /// Creates a new SafetyRating from a map.
-  factory SafetyRating.fromJson(Map<String, dynamic> json) => SafetyRating(
-        category: json['category'],
-        probability: json['probability'],
+  factory SafetyRating.fromMap(Map<String, dynamic> map) => SafetyRating(
+        category: map['category'],
+        probability: map['probability'],
       );
 
   /// Converts the SafetyRating instance into a Map.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         'category': category,
         'probability': probability,
       };

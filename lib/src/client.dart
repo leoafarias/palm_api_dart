@@ -46,6 +46,7 @@ class PalmClient {
     Map<String, dynamic> body,
   ) async {
     Uri url = Uri.parse('$_baseUrl/$path');
+
     var response = await httpClient.post(
       url,
       headers: {"Content-Type": "application/json"},
@@ -58,6 +59,14 @@ class PalmClient {
     }
 
     throw PalmApiException(response.body, response.statusCode);
+  }
+
+  String generateCurlCommand(Uri url, Map<String, dynamic> body) {
+    String endpoint = url.toString();
+    String headers = '-H "Content-Type: application/json"';
+    String data = '-d \'${json.encode(body).replaceAll('\'', '\\\'')}\'';
+
+    return 'curl -X POST $headers $data "$endpoint"';
   }
 
   /// Don't forget to close the httpClient when it's no longer used.

@@ -140,31 +140,31 @@ components:
       type: object
       properties:
         category:
-          $ref: "#/components/schemas/SafetySetting/HarmCategory"
+          $ref: "#/components/schemas/HarmCategory"
         threshold:
-          $ref: "#/components/schemas/SafetySetting/HarmBlockThreshold"
+          $ref: "#/components/schemas/HarmBlockThreshold"
 
-      HarmCategory:
-        type: string
-        enum:
-          - HARM_CATEGORY_UNSPECIFIED
-          - HARM_CATEGORY_DEROGATORY
-          - HARM_CATEGORY_TOXICITY
-          - HARM_CATEGORY_VIOLENCE
-          - HARM_CATEGORY_SEXUAL
-          - HARM_CATEGORY_MEDICAL
-          - HARM_CATEGORY_DANGEROUS
-        description: Categories of harmful content
+    HarmCategory:
+      type: string
+      enum:
+        - HARM_CATEGORY_UNSPECIFIED
+        - HARM_CATEGORY_DEROGATORY
+        - HARM_CATEGORY_TOXICITY
+        - HARM_CATEGORY_VIOLENCE
+        - HARM_CATEGORY_SEXUAL
+        - HARM_CATEGORY_MEDICAL
+        - HARM_CATEGORY_DANGEROUS
+      description: Categories of harmful content
 
-      HarmBlockThreshold:
-        type: string
-        enum:
-          - HARM_BLOCK_THRESHOLD_UNSPECIFIED
-          - BLOCK_LOW_AND_ABOVE
-          - BLOCK_MEDIUM_AND_ABOVE
-          - BLOCK_ONLY_HIGH
-          - BLOCK_NONE
-        description: Thresholds for blocking content
+    HarmBlockThreshold:
+      type: string
+      enum:
+        - HARM_BLOCK_THRESHOLD_UNSPECIFIED
+        - BLOCK_LOW_AND_ABOVE
+        - BLOCK_MEDIUM_AND_ABOVE
+        - BLOCK_ONLY_HIGH
+        - BLOCK_NONE
+      description: Thresholds for blocking content
 
     GenerateTextRequest:
       type: object
@@ -279,36 +279,36 @@ components:
       type: object
       properties:
         reason:
-          $ref: "#/components/schemas/ContentFilter/BlockReason"
+          $ref: "#/components/schemas/BlockReason"
         message:
           type: string
           description: Explanation message
 
-      BlockReason:
-        type: string
-        enum:
-          - BLOCKED_REASON_UNSPECIFIED
-          - SAFETY
-          - OTHER
-        description: Reasons for blocking content
+    BlockReason:
+      type: string
+      enum:
+        - BLOCKED_REASON_UNSPECIFIED
+        - SAFETY
+        - OTHER
+      description: Reasons for blocking content
 
     SafetyRating:
       type: object
       properties:
         category:
-          $ref: "#/components/schemas/SafetySetting/HarmCategory"
+          $ref: "#/components/schemas/HarmCategory"
         probability:
-          $ref: "#/components/schemas/SafetyRating/HarmProbability"
+          $ref: "#/components/schemas/HarmProbability"
 
-      HarmProbability:
-        type: string
-        enum:
-          - HARM_PROBABILITY_UNSPECIFIED
-          - NEGLIGIBLE
-          - LOW
-          - MEDIUM
-          - HIGH
-        description: Levels of harmful probability
+    HarmProbability:
+      type: string
+      enum:
+        - HARM_PROBABILITY_UNSPECIFIED
+        - NEGLIGIBLE
+        - LOW
+        - MEDIUM
+        - HIGH
+      description: Levels of harmful probability
 
     SafetyFeedback:
       type: object
@@ -318,33 +318,33 @@ components:
         setting:
           $ref: "#/components/schemas/SafetySetting"
 
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+
   responses:
     TextGenerationResponse:
-      description: Text generation success
+      description: Text generation success.
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/GenerateTextResponse"
 
     MessageGenerationResponse:
-      description: Message generation success
+      description: Message generation success.
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/GenerateMessageResponse"
 
     BadRequest:
-      description: Bad request
+      description: Bad request.
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/Error"
-
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
 
   securitySchemes:
     OAuth:

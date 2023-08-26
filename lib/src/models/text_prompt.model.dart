@@ -11,11 +11,15 @@ class TextPrompt {
   });
 
   /// Creates a new TextPrompt instance from a map.
-  factory TextPrompt.fromJson(Map<String, dynamic> json) => TextPrompt(
-        text: json['text'],
+  factory TextPrompt.fromMap(Map<String, dynamic> map) => TextPrompt(
+        text: map['text'],
       );
 
   /// Converts the TextPrompt instance into a Map.
+  Map<String, dynamic> toMap() => {
+        'text': text,
+      };
+
   Map<String, dynamic> toJson() => {
         'text': text,
       };

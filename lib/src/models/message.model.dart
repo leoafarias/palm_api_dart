@@ -25,7 +25,7 @@ class Message {
         author: json['author'],
         content: json['content'],
         citationMetadata: json['citationMetadata'] != null
-            ? CitationMetadata.fromJson(json['citationMetadata'])
+            ? CitationMetadata.fromMap(json['citationMetadata'])
             : null,
       );
 
@@ -33,6 +33,6 @@ class Message {
   Map<String, dynamic> toJson() => {
         'author': author,
         'content': content,
-        'citationMetadata': citationMetadata?.toJson(),
+        'citationMetadata': citationMetadata?.toMap(),
       };
 }

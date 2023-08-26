@@ -6,21 +6,21 @@ class ContentFilter {
   /// Reason for filtering provided as a string enum value.
   /// It could represent several reasons such as being inappropriate,
   /// outside the learning scope, policy violation, etc.
-  final String reason;
+  final String? reason;
 
   /// Detailed message about why specific content was filtered.
-  final String message;
+  final String? message;
 
   ContentFilter({
-    required this.reason,
-    required this.message,
+    this.reason,
+    this.message,
   });
 
   /// Parses a map to create a new instance of ContentFilter.
   ///
   /// The constructor takes a map and initializes a new ContentFilter
   /// object with the values associated with keys 'reason' and 'message'.
-  factory ContentFilter.fromJson(Map<String, dynamic> json) => ContentFilter(
+  factory ContentFilter.fromMap(Map<String, dynamic> json) => ContentFilter(
         reason: json["reason"],
         message: json["message"],
       );
@@ -29,7 +29,7 @@ class ContentFilter {
   ///
   /// The created map carries keys which match with property names
   /// of the ContentFilter and corresponding current values of the same.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "reason": reason,
         "message": message,
       };

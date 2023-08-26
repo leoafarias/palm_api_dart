@@ -18,15 +18,42 @@ class SafetyFeedback {
     required this.setting,
   });
 
-  /// Creates a new SafetyFeedback from a map.
-  factory SafetyFeedback.fromJson(Map<String, dynamic> json) => SafetyFeedback(
-        rating: SafetyRating.fromJson(json['rating']),
-        setting: SafetySetting.fromJson(json['setting']),
-      );
+  SafetyFeedback copyWith({
+    SafetyRating? rating,
+    SafetySetting? setting,
+  }) {
+    return SafetyFeedback(
+      rating: rating ?? this.rating,
+      setting: setting ?? this.setting,
+    );
+  }
 
-  /// Converts the SafetyFeedback instance into a Map.
-  Map<String, dynamic> toJson() => {
-        'rating': rating.toJson(),
-        'setting': setting.toJson(),
-      };
+  Map<String, dynamic> toMap() {
+    return {
+      'rating': rating.toMap(),
+      'setting': setting.toMap(),
+    };
+  }
+
+  factory SafetyFeedback.fromMap(Map<String, dynamic> map) {
+    return SafetyFeedback(
+      rating: SafetyRating.fromMap(map['rating']),
+      setting: SafetySetting.fromMap(map['setting']),
+    );
+  }
+
+  @override
+  String toString() => 'SafetyFeedback(rating: $rating, setting: $setting)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is SafetyFeedback &&
+        other.rating == rating &&
+        other.setting == setting;
+  }
+
+  @override
+  int get hashCode => rating.hashCode ^ setting.hashCode;
 }

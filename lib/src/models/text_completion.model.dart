@@ -11,30 +11,35 @@ class TextCompletion {
   final String output;
 
   /// List of SafetyRating objects representing ratings for the output.
-  final List<SafetyRating> safetyRatings;
+  final List<SafetyRating>? safetyRatings;
 
   /// Citation metadata attributing sources for the content.
-  final CitationMetadata citationMetadata;
+  final CitationMetadata? citationMetadata;
 
   TextCompletion({
     required this.output,
-    required this.safetyRatings,
-    required this.citationMetadata,
+    this.safetyRatings,
+    this.citationMetadata,
   });
 
   /// Creates a new TextCompletion from a map.
-  factory TextCompletion.fromJson(Map<String, dynamic> json) => TextCompletion(
-        output: json['output'],
-        safetyRatings: List<SafetyRating>.from(
-            json['safetyRatings'].map((x) => SafetyRating.fromJson(x))),
-        citationMetadata: CitationMetadata.fromJson(json['citationMetadata']),
-      );
+  factory TextCompletion.fromMap(Map<String, dynamic> map) {
+    return TextCompletion(
+      // Check if values exist
+      output: map['output'] ?? '',
+      safetyRatings: (map['safetyRatings'] as List<dynamic>?)
+          ?.map((x) => SafetyRating.fromMap(x as Map<String, dynamic>))
+          .toList(),
+      citationMetadata: map['citationMetadata'] != null
+          ? CitationMetadata.fromMap(map['citationMetadata'])
+          : null,
+    );
+  }
 
   /// Converts the TextCompletion instance into a Map.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         'output': output,
-        'safetyRatings':
-            List<dynamic>.from(safetyRatings.map((x) => x.toJson())),
-        'citationMetadata': citationMetadata.toJson(),
+        'safetyRatings': safetyRatings?.map((x) => x.toMap()),
+        'citationMetadata': citationMetadata?.toMap(),
       };
 }

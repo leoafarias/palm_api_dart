@@ -90,6 +90,6 @@ class TextService extends BaseService {
     );
 
     // We assume GenerateTextResponse.fromJson() factory method to convert JSON to a GenerateTextResponse instance.
-    return GenerateTextResponse.fromJson(response);
+    return GenerateTextResponse.fromMap(response);
   }
 }
