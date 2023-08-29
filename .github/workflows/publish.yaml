@@ -11,6 +11,9 @@ jobs:
     container:
       image: dart:latest
 
+    env:
+      IS_CI: true
+
     steps:
       - uses: actions/checkout@v2
 

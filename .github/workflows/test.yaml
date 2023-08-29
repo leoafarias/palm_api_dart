@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: dart:latest
+    env:
+      IS_CI: true
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
