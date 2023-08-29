@@ -13,6 +13,7 @@ jobs:
 
     env:
       IS_CI: true
+      PALM_API_KEY: ${{ secrets.PALM_API_KEY }}
 
     steps:
       - uses: actions/checkout@v2
