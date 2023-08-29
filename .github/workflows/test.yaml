@@ -1,0 +1,23 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: dart:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: dart pub get
+        # Builder
+      - name: Build Runner
+        run: dart pub run build_runner build --delete-conflicting-outputs
+        # Run test
+      - name: Run tests
+        run: dart pub run test

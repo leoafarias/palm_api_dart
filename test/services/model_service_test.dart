@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:mockito/annotations.dart';
 import 'package:palm_api/palm_api.dart';
-import 'package:palm_api/src/helpers/palm_models.dart';
 import 'package:test/test.dart';
 
 import '../constants.dart';
