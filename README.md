@@ -75,3 +75,8 @@ The PaLM API allows you to customize the generated text by specifying various pa
 - `topP`: The maximum cumulative probability of tokens to consider when sampling. The model uses combined Top-k and nucleus sampling. Tokens are sorted based on their assigned probabilities so that only the most likely tokens are considered.
 - `topK`: The maximum number of tokens to consider when sampling. The model uses combined Top-k and nucleus sampling. Top-k sampling considers the set of `top_k` most probable tokens. Defaults to 40.
 - `stopSequences`: The set of character sequences (up to 5) that will stop output generation. If specified, the API will stop at the first appearance of a stop sequence. The stop sequence will not be included as part of the response.
+
+## TODO:
+- [ ] Makersuite jSON export support
+- [ ] Proxy using for API KEY security
+
