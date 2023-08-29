@@ -13,6 +13,7 @@ jobs:
       image: dart:latest
     env:
       IS_CI: true
+      PALM_API_KEY: ${{ secrets.PALM_API_KEY }}
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
