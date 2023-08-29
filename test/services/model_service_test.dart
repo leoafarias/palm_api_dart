@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:mockito/annotations.dart';
 import 'package:palm_api/palm_api.dart';
+import 'package:palm_api/src/helpers/palm_models.dart';
 import 'package:test/test.dart';
 
 import '../constants.dart';
@@ -25,9 +26,9 @@ void main() {
 
       expect(models, isA<List<Model>>());
       expect(models.length, 3);
-      expect(models[0].name, equals('models/text-bison-001'));
-      expect(models[1].name, equals('models/chat-bison-001'));
-      expect(models[2].name, equals('models/embedding-gecko-001'));
+      expect(models[0].name, equals(PalmModel.textBison001.name));
+      expect(models[1].name, equals(PalmModel.chatBison001.name));
+      expect(models[2].name, equals(PalmModel.embeddingGecko001.name));
     });
 
     test('List all models', () async {
@@ -38,15 +39,15 @@ void main() {
       expect(models.length, 3);
 
       final textBison001 = models.firstWhereOrNull(
-        (model) => model.name == 'models/text-bison-001',
+        (model) => model.name == PalmModel.textBison001.name,
       );
 
       final chatBison001 = models.firstWhereOrNull(
-        (model) => model.name == 'models/chat-bison-001',
+        (model) => model.name == PalmModel.chatBison001.name,
       );
 
       final embeddingGecko001 = models.firstWhereOrNull(
-        (model) => model.name == 'models/embedding-gecko-001',
+        (model) => model.name == PalmModel.embeddingGecko001.name,
       );
 
       expect(textBison001, isA<Model>());
