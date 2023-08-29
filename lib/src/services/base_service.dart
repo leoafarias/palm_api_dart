@@ -1,4 +1,4 @@
-import 'package:palm_api/src/client.dart';
+import 'package:palm_api/src/helpers/client.dart';
 
 abstract class BaseService {
   final PalmClient apiClient;

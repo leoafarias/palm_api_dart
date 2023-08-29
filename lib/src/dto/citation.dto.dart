@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 
 /// A collection of source attributions for a piece of content.
+
 class CitationMetadata {
   /// Citations to sources for a specific response.
   final List<CitationSource> citationSources;
@@ -11,13 +12,20 @@ class CitationMetadata {
     required this.citationSources,
   });
 
-  CitationMetadata copyWith({
-    List<CitationSource>? citationSources,
-  }) {
-    return CitationMetadata(
-      citationSources: citationSources ?? this.citationSources,
-    );
+  @override
+  String toString() => 'CitationMetadata(citationSources: $citationSources)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
+
+    return other is CitationMetadata &&
+        listEquals(other.citationSources, citationSources);
   }
+
+  @override
+  int get hashCode => citationSources.hashCode;
 
   Map<String, dynamic> toMap() {
     return {
@@ -37,23 +45,17 @@ class CitationMetadata {
   factory CitationMetadata.fromJson(String source) =>
       CitationMetadata.fromMap(json.decode(source));
 
-  @override
-  String toString() => 'CitationMetadata(citationSources: $citationSources)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
-
-    return other is CitationMetadata &&
-        listEquals(other.citationSources, citationSources);
+  CitationMetadata copyWith({
+    List<CitationSource>? citationSources,
+  }) {
+    return CitationMetadata(
+      citationSources: citationSources ?? this.citationSources,
+    );
   }
-
-  @override
-  int get hashCode => citationSources.hashCode;
 }
 
 /// A citation to a source for a portion of a specific response.
+
 class CitationSource {
   /// Optional. Start of segment of the response that is attributed to this
   /// source.
@@ -79,6 +81,30 @@ class CitationSource {
     this.uri,
     this.license,
   });
+
+  @override
+  String toString() {
+    return 'CitationSource(startIndex: $startIndex, endIndex: $endIndex, uri: $uri, license: $license)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is CitationSource &&
+        other.startIndex == startIndex &&
+        other.endIndex == endIndex &&
+        other.uri == uri &&
+        other.license == license;
+  }
+
+  @override
+  int get hashCode {
+    return startIndex.hashCode ^
+        endIndex.hashCode ^
+        uri.hashCode ^
+        license.hashCode;
+  }
 
   CitationSource copyWith({
     int? startIndex,
@@ -116,28 +142,4 @@ class CitationSource {
 
   factory CitationSource.fromJson(String source) =>
       CitationSource.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'CitationSource(startIndex: $startIndex, endIndex: $endIndex, uri: $uri, license: $license)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is CitationSource &&
-        other.startIndex == startIndex &&
-        other.endIndex == endIndex &&
-        other.uri == uri &&
-        other.license == license;
-  }
-
-  @override
-  int get hashCode {
-    return startIndex.hashCode ^
-        endIndex.hashCode ^
-        uri.hashCode ^
-        license.hashCode;
-  }
 }

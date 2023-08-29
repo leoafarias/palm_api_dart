@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:palm_api/src/exception.dart';
+import 'package:palm_api/src/helpers/exception.dart';
 
 const _defaultAPIEndpoint = 'https://generativelanguage.googleapis.com/v1beta2';
 
