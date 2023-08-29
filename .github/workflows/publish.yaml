@@ -26,5 +26,5 @@ jobs:
       - name: Publish Dart package
         uses: k-paxian/dart-package-publisher@master
         with:
-          refreshToken: ${{ secrets.REFRESH_TOKEN }}
-          accessToken: ${{ secrets.ACCESS_TOKEN }}
+          refreshToken: ${{ secrets.PUB_REFRESH_TOKEN }}
+          accessToken: ${{ secrets.PUB_ACCESS_TOKEN }}

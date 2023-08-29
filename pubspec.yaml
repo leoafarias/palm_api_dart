@@ -1,6 +1,6 @@
 name: palm_api
 description: A starting point for Dart libraries or applications.
-version: 0.0.1
+version: 0.0.1-rc.1
 repository: https://github.com/leoafarias/palm_api_dart
 
 environment:
