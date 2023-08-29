@@ -8,7 +8,7 @@ import '../constants.dart';
 
 @GenerateMocks([PalmClient])
 void main() {
-  group('ModelService', () {
+  group('Model Service', () {
     test('Retrieves a model by id', () async {
       final modelService = ModelService(apiKey: TestEnv.palmApiKey);
 
