@@ -3,6 +3,19 @@ import 'package:palm_api/src/dto/model.dto.dart';
 class PalmModel {
   const PalmModel._();
 
+  static Model fromModelName(String modelName) {
+    switch (modelName) {
+      case 'chat-bison-001':
+        return chatBison001;
+      case 'text-bison-001':
+        return textBison001;
+      case 'embedding-gecko-001':
+        return embeddingGecko001;
+      default:
+        throw ArgumentError('Model $modelName not found');
+    }
+  }
+
   static Model chatBison001 = Model.fromMap(
     {
       "name": "models/chat-bison-001",

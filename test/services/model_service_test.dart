@@ -1,15 +1,17 @@
-import 'package:mockito/annotations.dart';
 import 'package:palm_api/palm_api.dart';
 import 'package:test/test.dart';
 
 import '../helpers/list_extension.dart';
+import '../helpers/mock_client.dart';
 import '../testing_helpers.dart';
 
-@GenerateMocks([PalmClient])
 void main() {
   group('Model Service', () {
     test('Retrieves a model by id', () async {
-      final modelService = ModelService(apiKey: TestEnv.palmApiKey);
+      final modelService = ModelService(
+        apiKey: TestEnv.palmApiKey,
+        apiClient: MockPalmClient,
+      );
 
       const textBison001 = 'text-bison-001';
       const chatBison001 = 'chat-bison-001';
@@ -31,7 +33,10 @@ void main() {
     });
 
     test('List all models', () async {
-      final modelService = ModelService(apiKey: TestEnv.palmApiKey);
+      final modelService = ModelService(
+        apiKey: TestEnv.palmApiKey,
+        apiClient: MockPalmClient,
+      );
 
       List<Model> models = await modelService.listModels();
       expect(models, isA<List<Model>>());

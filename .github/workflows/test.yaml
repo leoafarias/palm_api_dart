@@ -18,9 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: dart pub get
-        # Builder
-      - name: Build Runner
-        run: dart pub run build_runner build --delete-conflicting-outputs
+
         # Run test
       - name: Run tests
         run: dart pub run test
