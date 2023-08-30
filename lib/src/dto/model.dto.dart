@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
+import 'package:palm_api/src/helpers/deep_collection_equality.dart';
 
 class Model {
   /// Required. The resource name of the `Model`. Format: `models/{model}` with a `{model}` naming convention of: "{base_model_id}-{version}". Examples: `models/chat-bison-001`

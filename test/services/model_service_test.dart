@@ -1,9 +1,9 @@
-import 'package:collection/collection.dart';
 import 'package:mockito/annotations.dart';
 import 'package:palm_api/palm_api.dart';
 import 'package:test/test.dart';
 
-import '../constants.dart';
+import '../helpers/list_extension.dart';
+import '../testing_helpers.dart';
 
 @GenerateMocks([PalmClient])
 void main() {
