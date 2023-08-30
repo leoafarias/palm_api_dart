@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:palm_api/src/dto/citation.dto.dart';
 import 'package:palm_api/src/dto/safety.dto.dart';
+import 'package:palm_api/src/helpers/deep_collection_equality.dart';
 
 /// Request to generate a message.
 

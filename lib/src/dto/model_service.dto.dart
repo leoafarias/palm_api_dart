@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:palm_api/src/dto/model.dto.dart';
+import 'package:palm_api/src/helpers/deep_collection_equality.dart';
 
 /// Request for getting information about a specific Model.
 

@@ -1,13 +1,12 @@
 name: palm_api
 description: A Dart client for interacting with the PaLM API, allowing developers to build generative AI applications.
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/leoafarias/palm_api_dart
 
 environment:
   sdk: ^3.0.3
 
 dependencies:
-  collection: ^1.18.0
   http: ^1.1.0
 
 dev_dependencies:

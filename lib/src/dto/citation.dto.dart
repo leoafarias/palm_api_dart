@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
+import 'package:palm_api/src/helpers/deep_collection_equality.dart';
 
 /// A collection of source attributions for a piece of content.
 
