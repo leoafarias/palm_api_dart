@@ -61,6 +61,7 @@ DiscussService:
 TextService:  
 
 - `generateText`: Generates text completions
+- `generateTextFromMakerSuite`: Generates text completions from a MarkerSuite exported JSON
 - `embedText`: Gets text embeddings for a given text input.
 
 ## Model Parameters

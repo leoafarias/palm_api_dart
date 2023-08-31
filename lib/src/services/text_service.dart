@@ -68,7 +68,9 @@ class TextService extends BaseService {
 
   Future<GenerateTextResponse> generateTextFromMakerSuite(
       Map<String, dynamic> params) async {
-    final modelPathBuilder = getModelPathBuilder(params['model']);
+    final modelPathBuilder = getModelPathBuilder(params['model_name']);
+    params.update("prompt", (value) => {"text": value});
+    params.remove("model_name");
     final response = await apiClient.post(
       modelPathBuilder(':generateText'),
       params,
