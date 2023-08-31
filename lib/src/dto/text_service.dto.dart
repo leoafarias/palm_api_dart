@@ -253,11 +253,11 @@ class GenerateTextResponse {
   factory GenerateTextResponse.fromMap(Map<String, dynamic> map) {
     return GenerateTextResponse(
       candidates: List<TextCompletion>.from(
-          map['candidates']?.map((x) => TextCompletion.fromMap(x))),
+          map['candidates']?.map((x) => TextCompletion.fromMap(x)) ?? []),
       filters: List<ContentFilter>.from(
-          map['filters']?.map((x) => ContentFilter.fromMap(x))),
+          map['filters']?.map((x) => ContentFilter.fromMap(x)) ?? []),
       safetyFeedback: List<SafetyFeedback>.from(
-          map['safetyFeedback']?.map((x) => SafetyFeedback.fromMap(x))),
+          map['safetyFeedback']?.map((x) => SafetyFeedback.fromMap(x)) ?? []),
     );
   }
 

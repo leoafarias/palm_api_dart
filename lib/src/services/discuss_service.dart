@@ -1,4 +1,4 @@
-import 'package:palm_api/src/dto/discussion_service.dto.dart';
+import 'package:palm_api/src/dto/discuss_service.dto.dart';
 import 'package:palm_api/src/services/base_service.dart';
 
 /// DiscussService deals with all chat related API endpoints. It provides

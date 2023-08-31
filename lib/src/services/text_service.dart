@@ -65,4 +65,15 @@ class TextService extends BaseService {
 
     return GenerateTextResponse.fromMap(response);
   }
+
+  Future<GenerateTextResponse> generateTextFromMakerSuite(
+      Map<String, dynamic> params) async {
+    final modelPathBuilder = getModelPathBuilder(params['model']);
+    final response = await apiClient.post(
+      modelPathBuilder(':generateText'),
+      params,
+    );
+
+    return GenerateTextResponse.fromMap(response);
+  }
 }

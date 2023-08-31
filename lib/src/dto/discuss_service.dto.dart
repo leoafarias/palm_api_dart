@@ -195,12 +195,12 @@ class GenerateMessageResponse {
 
   factory GenerateMessageResponse.fromMap(Map<String, dynamic> map) {
     return GenerateMessageResponse(
-      candidates:
-          List<Message>.from(map['candidates']?.map((x) => Message.fromMap(x))),
-      messages:
-          List<Message>.from(map['messages']?.map((x) => Message.fromMap(x))),
+      candidates: List<Message>.from(
+          map['candidates']?.map((x) => Message.fromMap(x)) ?? []),
+      messages: List<Message>.from(
+          map['messages']?.map((x) => Message.fromMap(x)) ?? []),
       filters: List<ContentFilter>.from(
-          map['filters']?.map((x) => ContentFilter.fromMap(x))),
+          map['filters']?.map((x) => ContentFilter.fromMap(x)) ?? []),
     );
   }
 

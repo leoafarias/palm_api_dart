@@ -6,90 +6,111 @@ import 'dart:convert';
 // may wish to adjust.
 enum HarmCategory {
   // Category is unspecified.
-  harmCategoryUnspecified(0),
+  unspecified('HARM_CATEGORY_UNSPECIFIED'),
 
   // Negative or harmful comments targeting identity and/or protected attribute.
-  harmCategoryDerogatory(1),
+  derogatory('HARM_CATEGORY_DEROGATORY'),
 
   // Content that is rude, disrepspectful, or profane.
-  harmCategoryToxicity(2),
+  toxicity('HARM_CATEGORY_TOXICITY'),
 
   // Describes scenarios depictng violence against an individual or group, or
   // general descriptions of gore.
-  harmCategoryViolence(3),
+  violence('HARM_CATEGORY_VIOLENCE'),
 
   // Contains references to sexual acts or other lewd content.
-  harmCategorySexual(4),
+  sexual('HARM_CATEGORY_SEXUAL'),
 
   // Promotes unchecked medical advice.
-  harmCategoryMedical(5),
+  medical('HARM_CATEGORY_MEDICAL'),
 
   // Dangerous content that promotes, facilitates, or encourages harmful acts.
-  harmCategoryDangerous(6);
+  dangerous('HARM_CATEGORY_DANGEROUS');
 
   const HarmCategory(this.value);
 
-  final int value;
+  final String value;
+
+  static HarmCategory fromString(String value) {
+    return HarmCategory.values.firstWhere((e) => e.value == value);
+  }
 }
 
 // Block at and beyond a specified harm probability.
 enum HarmBlockThreshold {
   // Threshold is unspecified.
-  harmBlockThresholdUnspecified(0),
+  unspecified('HARM_BLOCK_THRESHOLD_UNSPECIFIED'),
 
   // Content with NEGLIGIBLE will be allowed.
-  blockLowAndAbove(1),
+  blockLowAndAbove('BLOCK_LOW_AND_ABOVE'),
 
   // Content with NEGLIGIBLE and LOW will be allowed.
-  blockMediumAndAbove(2),
+  blockMediumAndAbove('BLOCK_MEDIUM_AND_ABOVE'),
 
   // Content with NEGLIGIBLE, LOW, and MEDIUM will be allowed.
-  blockOnlyHigh(3);
+  blockOnlyHigh('BLOCK_ONLY_HIGH');
 
   const HarmBlockThreshold(this.value);
 
-  final int value;
+  final String value;
+
+  static HarmBlockThreshold fromString(String value) {
+    return HarmBlockThreshold.values.firstWhere((e) => e.value == value);
+  }
 }
 
 // A list of reasons why content may have been blocked.
 enum BlockedReason {
   // A blocked reason was not specified.
-  blockedReasonUnspecified(0),
+  unspecified('BLOCKED_REASON_UNSPECIFIED'),
 
   // Content was blocked by safety settings.
-  safety(1),
+  safety('SAFETY'),
 
   // Content was blocked, but the reason is uncategorized.
-  other(2);
+  other('OTHER');
 
   const BlockedReason(this.value);
 
-  final int value;
+  final String value;
+
+  static BlockedReason fromString(String value) {
+    return BlockedReason.values.firstWhere((e) => e.value == value);
+  }
 }
 
 // The probability that a piece of content is harmful.
 //
 // The classification system gives the probability of the content being
 // unsafe. This does not indicate the severity of harm for a piece of content.
+// HARM_PROBABILITY_UNSPECIFIED	Probability is unspecified.
+// NEGLIGIBLE	Content has a negligible chance of being unsafe.
+// LOW	Content has a low chance of being unsafe.
+// MEDIUM	Content has a medium chance of being unsafe.
+// HIGH
 enum HarmProbability {
   // Probability is unspecified.
-  harmProbabilityUnspecified(0),
+  unspecified('HARM_PROBABILITY_UNSPECIFIED'),
 
   // Content has a negligible chance of being unsafe.
-  negligible(1),
+  negligible('NEGLIGIBLE'),
 
   // Content has a low chance of being unsafe.
-  low(2),
+  low('LOW'),
 
   // Content has a medium chance of being unsafe.
-  medium(3),
+  medium('MEDIUM'),
 
   // Content has a high chance of being unsafe.
-  high(4);
+  high('HIGH');
 
   const HarmProbability(this.value);
 
-  final int value;
+  final String value;
+
+  static HarmProbability fromString(String value) {
+    return HarmProbability.values.firstWhere((e) => e.value == value);
+  }
 }
 
 // Content filtering metadata associated with processing a single request.
@@ -140,7 +161,7 @@ class ContentFilter {
 
   factory ContentFilter.fromMap(Map<String, dynamic> map) {
     return ContentFilter(
-      reason: map['reason'] as BlockedReason,
+      reason: BlockedReason.fromString(map['reason']),
       message: map['message'],
     );
   }
@@ -263,15 +284,15 @@ class SafetyRating {
 
   Map<String, dynamic> toMap() {
     return {
-      'category': category,
-      'probability': probability,
+      'category': category.value,
+      'probability': probability.value,
     };
   }
 
   factory SafetyRating.fromMap(Map<String, dynamic> map) {
     return SafetyRating(
-      category: map['category'] as HarmCategory,
-      probability: map['probability'] as HarmProbability,
+      category: HarmCategory.fromString(map['category']),
+      probability: HarmProbability.fromString(map['probability']),
     );
   }
 
@@ -326,15 +347,15 @@ class SafetySetting {
 
   Map<String, dynamic> toMap() {
     return {
-      'category': category,
-      'threshold': threshold,
+      'category': category.value,
+      'threshold': threshold.value,
     };
   }
 
   factory SafetySetting.fromMap(Map<String, dynamic> map) {
     return SafetySetting(
-      category: map['category'] as HarmCategory,
-      threshold: map['threshold'] as HarmBlockThreshold,
+      category: HarmCategory.fromString(map['category']),
+      threshold: HarmBlockThreshold.fromString(map['threshold']),
     );
   }
 

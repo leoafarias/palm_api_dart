@@ -1,6 +1,5 @@
-import 'package:palm_api/src/dto/discussion_service.dto.dart';
+import 'package:palm_api/src/dto/discuss_service.dto.dart';
 import 'package:palm_api/src/dto/model.dto.dart';
-import 'package:palm_api/src/dto/safety.dto.dart';
 import 'package:palm_api/src/dto/text_service.dto.dart';
 import 'package:palm_api/src/helpers/exception.dart';
 import 'package:palm_api/src/services/base_service.dart';
@@ -46,21 +45,17 @@ class GenerativeLanguage extends BaseService {
     );
   }
 
-  Future<GenerateMessageResponse> generateMessage({
-    required MessagePrompt prompt,
-    double? temperature,
-    int? candidateCount,
-    double? topP,
-    int? topK,
-  }) async {
+  Future<GenerateMessageResponse> generateMessage(
+    GenerateMessageRequest params,
+  ) async {
     _checkMethodSupportAndThrow('generateMessage');
     return _discussionService.generateMessage(
       model: model.name,
-      prompt: prompt,
-      temperature: temperature,
-      candidateCount: candidateCount,
-      topP: topP,
-      topK: topK,
+      prompt: params.prompt,
+      temperature: params.temperature,
+      candidateCount: params.candidateCount,
+      topP: params.topP,
+      topK: params.topK,
     );
   }
 
@@ -74,27 +69,18 @@ class GenerativeLanguage extends BaseService {
     );
   }
 
-  Future<GenerateTextResponse> generateText({
-    required TextPrompt prompt,
-    double? temperature,
-    int? candidateCount,
-    int? maxOutputTokens,
-    double? topP,
-    int? topK,
-    List<SafetySetting>? safetySettings,
-    List<String>? stopSequences,
-  }) async {
+  Future<GenerateTextResponse> generateText(GenerateTextRequest params) async {
     _checkMethodSupportAndThrow('generateText');
     return _textService.generateText(
       model: model.name,
-      prompt: prompt,
-      temperature: temperature,
-      candidateCount: candidateCount,
-      maxOutputTokens: maxOutputTokens,
-      topP: topP,
-      topK: topK,
-      safetySettings: safetySettings,
-      stopSequences: stopSequences,
+      prompt: params.prompt,
+      temperature: params.temperature,
+      candidateCount: params.candidateCount,
+      maxOutputTokens: params.maxOutputTokens,
+      topP: params.topP,
+      topK: params.topK,
+      safetySettings: params.safetySettings,
+      stopSequences: params.stopSequences,
     );
   }
 }
