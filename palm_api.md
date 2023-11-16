@@ -25,19 +25,19 @@ Service endpoint:
 https://generativelanguage.googleapis.com
 
 REST
-Resource: v1beta2.models
+Resource: v1beta2.models   
 ```
 
 ### Methods
 
-| Method                                              | Description                                                       |
-| --------------------------------------------------- | ----------------------------------------------------------------- |
+| Method | Description |
+|-|-|
 | `POST /v1beta2/{model=models/*}:countMessageTokens` | Runs a model's tokenizer on a string and returns the token count. |
-| `POST /v1beta2/{model=models/*}:embedText`          | Generates an embedding from the model given an input message.     |
-| `POST /v1beta2/{model=models/*}:generateMessage`    | Generates a response from the model given an input MessagePrompt. |
-| `POST /v1beta2/{model=models/*}:generateText`       | Generates a response from the model given an input message.       |
-| `GET /v1beta2/{name=models/*}`                      | Gets information about a specific Model.                          |
-| `GET /v1beta2/models`                               | Lists models available through the API.                           |
+| `POST /v1beta2/{model=models/*}:embedText` | Generates an embedding from the model given an input message. |  
+| `POST /v1beta2/{model=models/*}:generateMessage` | Generates a response from the model given an input MessagePrompt. |
+| `POST /v1beta2/{model=models/*}:generateText` | Generates a response from the model given an input message. |
+| `GET /v1beta2/{name=models/*}` | Gets information about a specific Model. |
+| `GET /v1beta2/models` | Lists models available through the API. |
 
 ### Resource: models
 
@@ -49,7 +49,7 @@ The `Model` resource provides information about a Generative Language Model.
   "baseModelId": "string",
   "version": "string",
   "displayName": "string",
-  "description": "string",
+  "description": "string",  
   "inputTokenLimit": "integer",
   "outputTokenLimit": "integer",
   "supportedGenerationMethods": ["string"],
@@ -59,25 +59,26 @@ The `Model` resource provides information about a Generative Language Model.
 }
 ```
 
-- `name`: Required. The resource name of the Model. Format: `models/{model}`
+- `name`: Required. The resource name of the Model. Format: `models/{model}` 
 - `baseModelId`: Required. The name of the base model.
-- `version`: Required. The version number of the model.
+- `version`: Required. The version number of the model. 
 - `displayName`: The human-readable name of the model.
 - `description`: A short description of the model.
 - `inputTokenLimit`: Maximum number of input tokens allowed for this model.
 - `outputTokenLimit`: Maximum number of output tokens available for this model.
 - `supportedGenerationMethods[]`: The model's supported generation methods.
 - `temperature`: Controls the randomness of the output.
-- `topP`: For Nucleus sampling.
+- `topP`: For Nucleus sampling. 
 - `topK`: For Top-k sampling.
+
 
 ### Models Methods
 
 - `countMessageTokens`: Runs a model's tokenizer on a string and returns the token count.
-- `embedText`: Generates an embedding from the model given an input message.
+- `embedText`: Generates an embedding from the model given an input message.   
 - `generateMessage`: Generates a response from the model given an input MessagePrompt.
 - `generateText`: Generates a response from the model given an input message.
-- `get`: Gets information about a specific Model.
+- `get`: Gets information about a specific Model.  
 - `list`: Lists models available through the API.
 
 ## countMessageTokens
@@ -92,29 +93,30 @@ POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:countMes
 
 **Path Parameters**
 
-- `model`: Required. The model's resource name.
+- `model`: Required. The model's resource name. 
 
 **Request Body**
 
 ```json
 {
   "prompt": {
-    "object": "MessagePrompt"
+    "object": "MessagePrompt" 
   }
 }
 ```
 
 - `prompt`: Required. The prompt whose token count is to be returned.
 
-**Response Body**
+**Response Body** 
 
 ```json
 {
-  "tokenCount": "integer"
+  "tokenCount": "integer" 
 }
 ```
 
 - `tokenCount`: The number of tokens that the model tokenizes the prompt into.
+
 
 ## embedText
 
@@ -126,7 +128,7 @@ Generates an embedding from the model given an input message.
 POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:embedText
 ```
 
-**Path Parameters**
+**Path Parameters** 
 
 - `model`: Required. The model name to use.
 
@@ -152,31 +154,32 @@ POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:embedTex
 
 - `embedding`: Output only. The embedding generated from the input text.
 
+
 ## generateMessage
 
 Generates a response from the model given an input MessagePrompt.
 
-**HTTP Request**
+**HTTP Request** 
 
 ```
-POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:generateMessage
+POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:generateMessage 
 ```
 
 **Path Parameters**
 
 - `model`: Required. The name of the model to use.
 
-**Request Body**
+**Request Body** 
 
 ```json
 {
   "prompt": {
     "object": "MessagePrompt"
   },
-  "temperature": "number",
+  "temperature": "number", 
   "candidateCount": "integer",
   "topP": "number",
-  "topK": "integer"
+  "topK": "integer"  
 }
 ```
 
@@ -192,7 +195,7 @@ POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:generate
 {
   "candidates": [
     {
-      "object": "Message"
+      "object": "Message" 
     }
   ],
   "messages": [
@@ -202,13 +205,13 @@ POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:generate
   ],
   "filters": [
     {
-      "object": "ContentFilter"
+      "object": "ContentFilter" 
     }
   ]
 }
 ```
 
-- `candidates[]`: Candidate response messages.
+- `candidates[]`: Candidate response messages. 
 - `messages[]`: Conversation history.
 - `filters[]`: Content filtering metadata.
 
@@ -220,7 +223,7 @@ Generates a response from the model given an input message.
 
 ```
 POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:generateText
-```
+```  
 
 **Path Parameters**
 
@@ -230,40 +233,42 @@ POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:generate
 
 ```json
 {
-  "prompt": {
-    "object": "TextPrompt"
-  },
-  "safetySettings": [
-    {
-      "object": "SafetySetting"
-    }
-  ],
-  "stopSequences": ["string"],
-  "temperature": "number",
-  "candidateCount": "integer",
-  "maxOutputTokens": "integer",
-  "topP": "number",
-  "topK": "integer"
+   "prompt": {
+     "object": "TextPrompt"
+   },
+   "safetySettings": [
+     {
+       "object": "SafetySetting"
+     }
+   ],
+   "stopSequences": [
+     "string"
+   ],
+   "temperature": "number",  
+   "candidateCount": "integer",
+   "maxOutputTokens": "integer", 
+   "topP": "number",
+   "topK": "integer"
 }
 ```
 
 - `prompt`: Required. The input prompt text.
 - `safetySettings[]`: Optional. Safety settings.
 - `stopSequences[]`: Optional. Stop sequence strings.
-- `temperature`: Optional. Controls output randomness.
+- `temperature`: Optional. Controls output randomness.  
 - `candidateCount`: Optional. Number of responses to return.
 - `maxOutputTokens`: Optional. Maximum output length.
-- `topP`: Optional. Nucleus sampling parameter.
+- `topP`: Optional. Nucleus sampling parameter. 
 - `topK`: Optional. Top-k sampling parameter.
 
 **Response Body**
 
-```json
+```json  
 {
   "candidates": [
-    {
-      "object": "TextCompletion"
-    }
+     {
+       "object": "TextCompletion"
+     }
   ],
   "filters": [
     {
@@ -279,8 +284,9 @@ POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:generate
 ```
 
 - `candidates[]`: Candidate response messages.
-- `filters[]`: Content filtering metadata.
+- `filters[]`: Content filtering metadata. 
 - `safetyFeedback[]`: Safety feedback.
+
 
 ## models.get
 
@@ -300,6 +306,7 @@ GET https://generativelanguage.googleapis.com/v1beta2/{name=models/*}
 
 Returns a `Model` resource.
 
+
 Here is the embedText documentation in Markdown format:
 
 ## embedText
@@ -312,7 +319,7 @@ Generates an embedding from the model given one or more input messages.
 POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:embedText
 ```
 
-**Path Parameters**
+**Path Parameters** 
 
 - `model`: Required. The model name to use.
 
@@ -320,15 +327,17 @@ POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:embedTex
 
 ```json
 {
-  "texts": ["string"]
+  "texts": [
+    "string"
+  ]
 }
 ```
 
 - `texts`: Required. One or more input texts to generate embeddings for.
 
-**Response Body**
+**Response Body** 
 
-```json
+```json  
 {
   "embeddings": [
     {
@@ -340,13 +349,16 @@ POST https://generativelanguage.googleapis.com/v1beta2/{model=models/*}:embedTex
 
 - `embeddings[]`: Output only. The embeddings generated from the input texts, in the same order.
 
+
 ### Embedding
 
-A generated embedding for text.
+A generated embedding for text. 
 
 ```json
 {
-  "values": ["number"]
+  "values": [
+    "number"
+  ]
 }
 ```
 
@@ -356,7 +368,7 @@ Let me know if you would like me to modify or expand this embedText Markdown doc
 
 ## models.list
 
-Lists models available through the API.
+Lists models available through the API. 
 
 **HTTP Request**
 
@@ -367,9 +379,9 @@ GET https://generativelanguage.googleapis.com/v1beta2/models
 **Query Parameters**
 
 - `pageSize`: Maximum number of models to return per page.
-- `pageToken`: Page token received from a previous call.
+- `pageToken`: Page token received from a previous call. 
 
-**Response Body**
+**Response Body** 
 
 ```json
 {
@@ -378,12 +390,13 @@ GET https://generativelanguage.googleapis.com/v1beta2/models
       "object": "Model"
     }
   ],
-  "nextPageToken": "string"
+  "nextPageToken": "string" 
 }
 ```
 
 - `models[]`: The returned Models.
 - `nextPageToken`: Token to retrieve the next page.
+
 
 ## Objects
 
@@ -395,7 +408,7 @@ Metadata about the source of generated content.
 {
   "citationSources": [
     {
-      "object": "CitationSource"
+      "object": "CitationSource" 
     }
   ]
 }
@@ -410,13 +423,13 @@ Source citation for a portion of the content.
 ```json
 {
   "startIndex": "integer",
-  "endIndex": "integer",
+  "endIndex": "integer", 
   "uri": "string",
   "license": "string"
 }
 ```
 
-- `startIndex`: Start of attributed segment.
+- `startIndex`: Start of attributed segment. 
 - `endIndex`: End of attributed segment.
 - `uri`: URI of attributed source.
 - `license`: License for attributed code.
@@ -428,7 +441,7 @@ Content filtering metadata.
 ```json
 {
   "reason": "enum",
-  "message": "string"
+  "message": "string" 
 }
 ```
 
@@ -437,7 +450,7 @@ Content filtering metadata.
 
 ### SafetySetting
 
-Safety setting configuration.
+Safety setting configuration. 
 
 ```json
 {
@@ -474,23 +487,23 @@ Generated text response.
     }
   ],
   "citationMetadata": {
-    "object": "CitationMetadata"
+    "object": "CitationMetadata" 
   }
 }
 ```
 
 - `output`: Output only. The generated text.
-- `safetyRatings[]`: Safety ratings.
+- `safetyRatings[]`: Safety ratings. 
 - `citationMetadata`: Attribution metadata.
 
-### SafetyRating
+### SafetyRating 
 
 Safety rating for content.
 
 ```json
 {
   "category": "enum",
-  "probability": "enum"
+  "probability": "enum"  
 }
 ```
 
@@ -531,7 +544,7 @@ Structured message unit.
 
 - `author`: Optional. Message author.
 - `content`: Required. Message text.
-- `citationMetadata`: Attribution metadata.
+- `citationMetadata`: Attribution metadata. 
 
 ### MessagePrompt
 
@@ -539,7 +552,7 @@ Structured prompt with context, examples, and messages.
 
 ```json
 {
-  "context": "string",
+  "context": "string", 
   "examples": [
     {
       "object": "Example"
@@ -547,17 +560,17 @@ Structured prompt with context, examples, and messages.
   ],
   "messages": [
     {
-      "object": "Message"
+      "object": "Message" 
     }
   ]
 }
 ```
 
-- `context`: Optional. Grounding context.
+- `context`: Optional. Grounding context.  
 - `examples[]`: Optional. Input/output examples.
 - `messages[]`: Required. Conversation history.
 
-### Example
+### Example 
 
 Input/output example.
 
@@ -567,13 +580,14 @@ Input/output example.
     "object": "Message"
   },
   "output": {
-    "object": "Message"
+    "object": "Message" 
   }
 }
 ```
 
 - `input`: Example input.
 - `output`: Expected output.
+
 
 ## Prompt Precedence
 
@@ -592,11 +606,11 @@ For example:
 ```json
 {
   "context": "Translate the following sentences to French",
-
+  
   "examples": [
     {
       "input": {
-        "content": "Hello there!"
+        "content": "Hello there!"  
       },
       "output": {
         "content": "Bonjour!"
@@ -606,12 +620,12 @@ For example:
 
   "messages": [
     {
-      "content": "Hello my friend."
+      "content": "Hello my friend." 
     },
     {
       "content": "How are you today?"
     }
-  ]
+  ] 
 }
 ```
 
