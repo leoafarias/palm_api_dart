@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:palm_api/src/helpers/exception.dart';
+import 'package:palm_api/src/helpers/palm_api_version.dart';
 
-const _defaultAPIEndpoint = 'https://generativelanguage.googleapis.com/v1beta2';
+const _defaultAPIEndpoint = 'https://generativelanguage.googleapis.com';
 
 class PalmClient {
   final String _baseUrl;
@@ -14,8 +15,10 @@ class PalmClient {
     /// Change the baseUrl for proxy implementation
     String? baseUrl,
     http.Client? client,
+    /// Select API version of PaLM API
+    PalmApiVersion apiVersion = PalmApiVersion.v1Beta2,
   })  : httpClient = client ?? http.Client(),
-        _baseUrl = baseUrl ?? _defaultAPIEndpoint;
+        _baseUrl = baseUrl ?? '$_defaultAPIEndpoint/${apiVersion.name}';
 
   /// General method to make a GET request.
   ///
