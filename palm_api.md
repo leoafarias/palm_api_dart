@@ -4,6 +4,14 @@
 
 The PaLM API allows developers to build generative AI applications using the PaLM model. Large Language Models (LLMs) are a powerful, versatile type of machine learning model that enables computers to comprehend and generate natural language through a series of prompts. The PaLM API is based on Google's next generation LLM, PaLM. It excels at a variety of different tasks like code generation, reasoning, and writing. You can use the PaLM API to build generative AI applications for use cases like content generation, dialogue agents, summarization and classification systems, and more.
 
+### API Version
+
+By default, this project use v1beta2 version of the API. If you want to use higher version of the API select the version in the service to use
+
+```dart
+service = TextService(apiClient: PalmClient(apiVersion: PalmApiVersion.v1Beta3), ...);
+```
+
 ### Service Endpoint
 
 ```
