@@ -1,5 +1,9 @@
 # PaLM API Client
 
+
+## Archived: Google now has an official SDK for Gemnini.
+
+
 A Dart client for interacting with the PaLM API, allowing developers to build generative AI applications.
 
 ## About PaLM
